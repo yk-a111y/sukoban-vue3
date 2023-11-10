@@ -5,17 +5,17 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue';
 import { usePlayerStore } from '../../store/player'
+import { usePosition } from '../../composables/usePosition';
 import keeperImg from '../../assets/keeper.png';
-import { computed, onMounted, onUnmounted } from 'vue';
-
-const STEP = 32;
 
 // 移动逻辑
 useMove();
 
 // 位置逻辑
-const { position }  = usePosition();
+const { player } = usePlayerStore();
+const { position }  = usePosition(player);
 
 function useMove () {
   const {
@@ -49,18 +49,6 @@ function useMove () {
         break;
     }
   }
-}
-
-function usePosition () {
-  const { player } = usePlayerStore();
-  const position = computed(() => {
-    return {
-      left: player.x * STEP + 'px',
-      top: player.y * STEP + 'px'
-    }
-  })
-
-  return { position }
 }
 </script>
 

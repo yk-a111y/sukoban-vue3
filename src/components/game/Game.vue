@@ -1,10 +1,12 @@
 <template>
   <div>
     <Map />
-    <Target :x="target.x" :y="target.y"/>
+    <template v-for="target in targets">
+      <Target :x="target.x" :y="target.y"/>
+    </template>
     <Player />
     <template v-for="cargo in cargos">
-      <Cargo :x="cargo.x" :y="cargo.y"/>
+      <Cargo :cargo="cargo"/>
     </template>
   </div>
 </template>
@@ -20,7 +22,7 @@ import { useTargetStore } from '../../store/target';
 const { cargos, createCargo, addCargo } = useCargoStore();
 addCargo(createCargo({x: 2, y: 4}));
 
-const { target } = useTargetStore();
+const { targets } = useTargetStore();
 
 </script>
 

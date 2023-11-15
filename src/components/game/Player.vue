@@ -9,6 +9,7 @@ import { onMounted, onUnmounted } from 'vue';
 import { usePlayerStore } from '../../store/player'
 import { usePosition } from '../../composables/usePosition';
 import keeperImg from '../../assets/keeper.png';
+import { useGameStore } from '../../store/game';
 
 // 移动逻辑
 useMove();
@@ -34,6 +35,7 @@ function useMove () {
   
 
   function handleKeyUp (e: KeyboardEvent) {
+    const { detectIsGameCompleted } = useGameStore();
     switch(e.code) {
       case 'ArrowLeft': 
         movePlayerToLeft();
@@ -48,6 +50,7 @@ function useMove () {
         movePlayerToUp();
         break;
     }
+    detectIsGameCompleted();
   }
 }
 </script>
